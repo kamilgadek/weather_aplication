@@ -8,5 +8,6 @@ sealed class WeatherBlocEvent extends Equatable {
 }
 
 class FetchWeather extends WeatherBlocEvent{
+  FetchWeather(Position position);
   
 }
