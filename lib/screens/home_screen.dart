@@ -63,14 +63,15 @@ class HomeScreen extends StatelessWidget {
               ),
               BlocBuilder<WeatherBlocBloc, WeatherBlocState>(
                 builder: (context, state) {
+                  if(state is WeatherBlocSuccess) {
                   return SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          '📍 Cracow',
+                        Text(
+                          '📍 ${state.weather.areaName}',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w300,
@@ -272,6 +273,11 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                   );
+                  }
+                  // just to make else function
+                  else {
+                    return Container();
+                  }
                 },
               ),
             ],

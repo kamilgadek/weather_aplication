@@ -20,27 +20,27 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: FutureBuilder<Position>(
+        home: FutureBuilder(
           future: _determinePosition(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
+          builder: (context, snap) {
+            if (snap.connectionState == ConnectionState.waiting) {
               return const Scaffold(
                 body: Center(
                   child: CircularProgressIndicator(),
                 ),
               );
-            } else if (snapshot.hasError) {
+            } else if (snap.hasError) {
               return Scaffold(
                 body: Center(
-                  child: Text('Error: ${snapshot.error}'),
+                  child: Text('Error: ${snap.error}'),
                 ),
               );
-            } else if (snapshot.hasData) {
+            } else if (snap.hasData) {
               return BlocProvider<WeatherBlocBloc>(
                 create: (context) => WeatherBlocBloc()
                   ..add(
                     FetchWeather(
-                        snapshot.data!), // tutaj przekazujesz obiekt Position
+                        snap.data as Position), // tutaj przekazujesz obiekt Position
                   ),
                 child: const HomeScreen(),
               );
